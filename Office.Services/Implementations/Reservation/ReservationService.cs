@@ -39,7 +39,7 @@ namespace Office.Services.Implementations.Reservation
                     favoriteSpacesId.Add(space.id);
                 }
 
-                ReservationFilter reservationFilter = new ReservationFilter { ReservationDate = DateTime.Now.AddDays(1) };
+                ReservationFilter reservationFilter = new ReservationFilter { ReservationDate = DateTime.Now.AddDays(1).Date };
                 await foreach (var reservation in _reservationRepository.RetrieveCollectionAsync(reservationFilter))
                 {
                     if (reservation.UserId == UserId) { return new FastReservationResponse { IsSuccesful = false, Message = "user has already reserved for tomorrow" }; }
@@ -52,7 +52,7 @@ namespace Office.Services.Implementations.Reservation
                     {
                         UserId = UserId,
                         ReservedSpaceId = favoriteSpacesId.FirstOrDefault(),
-                        ReservationDate = DateTime.Now.AddDays(1)
+                        ReservationDate = DateTime.Now.AddDays(1).Date
                     });
 
                     return new FastReservationResponse { IsSuccesful = true, Message = "Reservation created successfully" };
@@ -71,8 +71,8 @@ namespace Office.Services.Implementations.Reservation
         {
             try
             {
-                if (Request.ReservationDate < DateTime.Now) { return new CreateReserationResponse { IsSuccesful = false, Message = "date already passed" }; }
-                if (Request.ReservationDate > DateTime.Now.AddDays(14)) { return new CreateReserationResponse { IsSuccesful = false, Message = "cant reserve that far in the future" }; }
+                if (Request.ReservationDate.Date < DateTime.Now.Date) { return new CreateReserationResponse { IsSuccesful = false, Message = "date already passed" }; }
+                if (Request.ReservationDate.Date > DateTime.Now.AddDays(14).Date) { return new CreateReserationResponse { IsSuccesful = false, Message = "cant reserve that far in the future" }; }
                 ReservationFilter reservationFilter = new ReservationFilter { ReservationDate = Request.ReservationDate };
                 await foreach (var reservation in _reservationRepository.RetrieveCollectionAsync(reservationFilter))
                 {

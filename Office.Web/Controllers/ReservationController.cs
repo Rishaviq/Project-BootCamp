@@ -71,7 +71,7 @@ namespace Office.Web.Controllers
             CreateReserationRequest request = new CreateReserationRequest
             {
                 UserId = Convert.ToInt32(HttpContext.Session.GetInt32("UserId")),
-                ReservationDate=date,
+                ReservationDate=date.Date,
                 SpaceId=id
             };
             var response = await _reservationService.CreateReseration(request);
