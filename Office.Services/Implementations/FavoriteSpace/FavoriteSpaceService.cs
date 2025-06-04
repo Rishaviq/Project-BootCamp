@@ -21,6 +21,12 @@ namespace Office.Services.Implementations.FavoriteSpace
         {
             try
             {
+                var response = await GetFavoritePerUser(Request.Space.UserId);
+                if (response.FavoriteSpaces.Count() >= 3)
+                {
+                    return new ChangeFavoriteReponse { IsSuccesful = false, Message = "User already has 3 favorite spaces" };
+                }
+
                 await _favoriteSpaceRepository.CreateAsync(new Models.FavoriteSpace
                 {
                     UserId = Request.Space.UserId,
@@ -78,7 +84,7 @@ namespace Office.Services.Implementations.FavoriteSpace
                         UserId = space.UserId,
                         SpaceId = space.SpaceId
                     });
-                    
+
                 }
                 return response;
             }
