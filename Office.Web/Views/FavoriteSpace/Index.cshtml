@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Favorite spaces</h1>
+<form method="post" asp-action="HandleForm" asp-controller="FavoriteSpace">
+	<div class="form-group">
+		<label>Enter Space Id</label>
+		<input name="spaceId" type="number" class="form-control" />
+
+	</div>
+	<button type="submit" value="Add" name="action" class="btn btn-primary">Submit</button>
+	<button type="submit" value="Delete" name="action" class="btn btn-primary">Submit</button>
+</form>
+
