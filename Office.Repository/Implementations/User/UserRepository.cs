@@ -42,7 +42,7 @@ namespace Office.Repositories.Implementations.User
             commandFilter.AddCondition("userId", filter.UserId.Value);
             } 
 
-            return RetrieveCollectionAsync(commandFilter);
+            return base.RetrieveCollectionAsync(commandFilter);
         }
 
         public Task<bool> UpdateAsync(int objectId, UserUpdate update)

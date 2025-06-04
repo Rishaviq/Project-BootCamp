@@ -12,7 +12,7 @@ namespace Office.Repositories.Implementations.Reservation
 {
     public class ReservationRepository : BaseRepository<Models.Reservation>, IReservationRepository
     {
-        private readonly string idFieldName = "reservationId";
+        private readonly string idFieldName = "ReservationId";
         public Task<int> CreateAsync(Models.Reservation entity)
         {
             return base.CreateAsync(entity, idFieldName);

@@ -14,6 +14,7 @@ using Office.Services.Implementations.User;
 using Office.Services.Implementations.WorkSpace;
 using Office.Repositories.Implementations.Reservation;
 using Office.Repositories.Implementations.WorkSpace;
+using Office.Repositories;
 
 
 namespace Office.Web
@@ -40,6 +41,8 @@ namespace Office.Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            ConnectionFactory.Initialize(builder.Configuration["SQL:Connection"]);
 
             builder.Services.AddSession(options =>
             {

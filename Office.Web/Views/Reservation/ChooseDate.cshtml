@@ -1,0 +1,16 @@
+﻿@model int
+@{
+    ViewData["Title"] = "ChooseDate";
+}
+
+<h1>ChooseDate</h1>
+<form method="post" asp-action="Create" asp-controller="Reservation">
+	<div class="form-group">
+		<label>Choose date</label>
+		<input name="date" type="datetime" class="form-control" />
+		<input hidden type="number" name="id" value="@Model" />
+
+	</div>
+	<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+

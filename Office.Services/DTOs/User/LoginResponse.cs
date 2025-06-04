@@ -8,5 +8,6 @@ namespace Office.Services.DTOs.User
 {
     public class LoginResponse : ResponseDTO
     {
+        public int UserId { get; set; }
     }
 }

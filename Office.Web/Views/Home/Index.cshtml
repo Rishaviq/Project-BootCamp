@@ -5,5 +5,11 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <btn onclick="location.href='@Url.Action("Index", "FavoriteSpace")'"
-         typeof="button" class="btn btn-primary">Create New Session</btn>
+         typeof="button" class="btn btn-primary">Change Favorite Spaces</btn>
+
+    <btn onclick="location.href='@Url.Action("QuickCreate", "Reservation")'"
+         typeof="button" class="btn btn-primary">Quick Reservation</btn>
+         </br>
+    <btn onclick="location.href='@Url.Action("Create", "Reservation")'"
+         typeof="button" class="btn btn-primary">Normal Reservation</btn>
 </div>

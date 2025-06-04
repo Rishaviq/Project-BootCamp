@@ -1,0 +1,53 @@
+﻿@using Office.Web.Models.WorkSpace
+@model Office.Web.Models.WorkSpace.SpaceReservationListModel
+@{
+	ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+<div class="text-center">
+	<h1 class="display-4">Welcome</h1>
+	<table class="table">
+		<tr>
+			<td>Space Id</td>
+			<td>Space floor</td>
+			<td>Space Zone</td>			
+			<td></td>
+		</tr>
+		<td>favorites</td>
+		@foreach (var space in Model.favoriteSpaces)
+		{
+			<tr>
+				<td>@space.SpaceId</td>
+				<td>@space.SpaceLocationFloor</td>
+				<td>@space.SpaceLocationZone</td>
+				
+
+				<td>
+					<btn onclick="location.href='@Url.Action("ChooseDate","Reservation",new {id = space.SpaceId})'"
+						 typeof="button" class="btn btn-primary">Add Order</btn>
+				</td>
+
+			</tr>
+
+		}
+		<td>All</td>
+		@foreach (var space in Model.Spaces)
+		{
+			<tr>
+				<td>@space.SpaceId</td>
+				<td>@space.SpaceLocationFloor</td>
+				<td>@space.SpaceLocationZone</td>
+
+
+				<td>
+					<btn onclick="location.href='@Url.Action("ChooseDate","Reservation",new {id = space.SpaceId})'"
+						 typeof="button" class="btn btn-primary">Add Order</btn>
+				</td>
+
+			</tr>
+
+		}
+	</table>
+</div>
+

@@ -1,14 +1,15 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Shopping.Services.DTOs.User;
-using Shopping.Services.Interfaces.UserService;
+using Office.Services.DTOs.User;
+using Office.Services.Interfaces.User;
 
-namespace Shopping.Web.Controllers
+
+namespace Office.Web.Controllers
 {
     public class LoginController : Controller
     {
-        IUserService _userService;
+        private readonly IUserService _userService;
         public LoginController(IUserService userService)
         {
             _userService = userService;
@@ -24,12 +25,13 @@ namespace Shopping.Web.Controllers
         // POST: LoginController/Create
         [HttpPost]
         
-        public async Task<ActionResult> Login(string pNumber)
+        public async Task<ActionResult> Login(string username,string password)
         {
-           GetUserResponse response=await _userService.GetUserByPhone(pNumber);
-            if (response.IsSuccesful && response.User!=null) {
-            HttpContext.Session.SetString("UserId", response.User.UserId.ToString());
-            HttpContext.Session.SetString("Name", response.User.Name);
+            LoginRequest request = new LoginRequest { Password = password, Username = username };
+            var response = await _userService.Login(request);
+            if (response.IsSuccesful ) {
+            HttpContext.Session.SetInt32("UserId", response.UserId);
+            HttpContext.Session.SetString("Name", username);
             }
 
            return RedirectToAction("Index","Home");

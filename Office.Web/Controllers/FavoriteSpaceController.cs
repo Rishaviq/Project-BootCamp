@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Office.Services.DTOs.FavoriteSpace;
 using Office.Services.Interfaces.FavoriteSpace;
 using Office.Web.Attributes;
 
@@ -34,30 +36,53 @@ namespace Office.Web.Controllers
         // POST: FavoriteSpaceController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult HandleForm(string action,int spaceId)
+        public ActionResult HandleForm(string action, int spaceId)
         {
-            if (action == "add")
+            if (action == "Add")
             {
-                return RedirectToAction("Add",new {spaceId= spaceId });
+                return RedirectToAction("Add", new { spaceId = spaceId });
             }
-            else {
+            else
+            {
                 return RedirectToAction("Delete", new { spaceId = spaceId });
             }
-                
+
         }
 
-        public ActionResult Add(int spaceId)
+        public async Task<ActionResult> Add(int spaceId)
         {
-            _favoriteSpaceService.AddFavorite()
-            return View("Index", "Home");
+            AddFavoriteRequest request = new AddFavoriteRequest
+            {
+                Space = new FavoriteSpaceDTO
+                {
+                    SpaceId = spaceId,
+                    UserId = Convert.ToInt32(HttpContext.Session.GetInt32("UserId"))
+                }
+
+            };
+            var response = await _favoriteSpaceService.AddFavorite(request);
+            Console.WriteLine(response.IsSuccesful);
+            Console.WriteLine(response.Message);
+            return RedirectToAction("Index", "Home");
         }
 
 
-        public ActionResult Delete(int spaceId)
+        public async Task<ActionResult> Delete(int spaceId)
         {
-            return View("Index","Home");
+            RemoveFavoriteRequest request = new RemoveFavoriteRequest
+            {
+                Space = new FavoriteSpaceDTO
+                {
+                    SpaceId = spaceId,
+                    UserId = Convert.ToInt32(HttpContext.Session.GetInt32("UserId"))
+                }
+
+            };
+            var response = await _favoriteSpaceService.RemoveFavorite(request);
+
+            return RedirectToAction("Index", "Home");
         }
 
-        
+
     }
 }

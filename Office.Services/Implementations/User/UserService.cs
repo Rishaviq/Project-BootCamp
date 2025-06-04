@@ -55,7 +55,8 @@ namespace Office.Services.Implementations.User
                     if (user.Password == loginRequest.Password) {
                         return new LoginResponse
                         {
-                            IsSuccesful=true
+                            IsSuccesful=true,
+                            UserId = user.UserId
                         };
                     }
                 }
