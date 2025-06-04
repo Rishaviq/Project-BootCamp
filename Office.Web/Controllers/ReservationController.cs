@@ -11,6 +11,7 @@ using Office.Services.Implementations.WorkSpace;
 using Office.Services.Interfaces.FavoriteSpace;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Office.Services.DTOs.Reservation;
+using Office.Web.Models.Reservation;
 
 namespace Office.Web.Controllers
 {
@@ -81,7 +82,22 @@ namespace Office.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public async Task<ActionResult> UserReservations() {
+            ReservationListModel model = new ReservationListModel();    
+            var response = await _reservationService.GetAllReservationsPerUser(Convert.ToInt32(HttpContext.Session.GetInt32("UserId")));
+            foreach (var reservation in response.Reservations)
+            {
+                model.Reservations.Add(new ReservationModel
+                {
+                    Id=reservation.ReservationId,
+                    ReservedSpaceId = reservation.ReservedSpaceId,
+                    ReservationDate = reservation.ReservationDate,
+                    UserName = reservation.UserName
+                });
+            }
 
+            return View(model);
+        }
 
 
 

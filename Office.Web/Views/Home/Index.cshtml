@@ -1,15 +1,52 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <btn onclick="location.href='@Url.Action("Index", "FavoriteSpace")'"
-         typeof="button" class="btn btn-primary">Change Favorite Spaces</btn>
+<div class="container mt-5">
+	<div class="text-center mb-4">
+		<h1 class="display-4">Welcome</h1>
+		<p class="lead">What would you like to do?</p>
+	</div>
 
-    <btn onclick="location.href='@Url.Action("QuickCreate", "Reservation")'"
-         typeof="button" class="btn btn-primary">Quick Reservation</btn>
-         </br>
-    <btn onclick="location.href='@Url.Action("Create", "Reservation")'"
-         typeof="button" class="btn btn-primary">Normal Reservation</btn>
+	<div class="row justify-content-center g-3">
+		<div class="col-12 col-md-6 col-lg-4">
+			<div class="card shadow-sm">
+				<div class="card-body text-center">
+					<h5 class="card-title">Favorite Spaces</h5>
+					<p class="card-text">Change your favorite parking spaces.</p>
+					<button onclick="location.href='@Url.Action("Index", "FavoriteSpace")'" class="btn btn-primary">Go</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-12 col-md-6 col-lg-4">
+			<div class="card shadow-sm">
+				<div class="card-body text-center">
+					<h5 class="card-title">Quick Reservation</h5>
+					<p class="card-text">Reserve a spot quickly with fewer steps.</p>
+					<button onclick="location.href='@Url.Action("QuickCreate", "Reservation")'" class="btn btn-success">Quick Reserve</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-12 col-md-6 col-lg-4">
+			<div class="card shadow-sm">
+				<div class="card-body text-center">
+					<h5 class="card-title">Normal Reservation</h5>
+					<p class="card-text">Make a standard reservation with full options.</p>
+					<button onclick="location.href='@Url.Action("Create", "Reservation")'" class="btn btn-warning">Reserve</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-12 col-md-6 col-lg-4">
+			<div class="card shadow-sm">
+				<div class="card-body text-center">
+					<h5 class="card-title">My Reservations</h5>
+					<p class="card-text">View and manage your existing reservations.</p>
+					<button onclick="location.href='@Url.Action("UserReservations", "Reservation")'" class="btn btn-info">View</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

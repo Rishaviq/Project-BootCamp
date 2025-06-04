@@ -1,0 +1,28 @@
+﻿@using Office.Web.Models.Reservation
+@model ReservationListModel
+@{
+    ViewData["Title"] = "UserReservations";
+}
+
+<h1>UserReservations</h1>
+<table class="table">
+	<tr>
+		<td>Reservation Id</td>
+		<td>User Name</td>
+		<td>Reserved space Id</td>
+		<td>Date</td>
+		
+	</tr>
+	@foreach (var reservation in Model.Reservations)
+	{
+		<tr>
+			<td>@reservation.Id</td>
+			<td>@reservation.UserName</td>
+			<td>@reservation.ReservedSpaceId</td>
+			<td>@reservation.ReservationDate.ToString("dd/MM/yyyy")</td>
+
+
+		</tr>
+
+	}
+</table>

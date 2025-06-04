@@ -139,6 +139,33 @@ namespace Office.Services.Implementations.Reservation
             {
                 return new GetReservationResponse { IsSuccesful = false, Message = ex.Message };
             }
+        }
+
+
+        public async Task<GetReservationListResponse> GetAllReservationsPerUser(int UserId)
+        {
+            try
+            {
+                GetReservationListResponse response = new GetReservationListResponse();
+                await foreach (var reservation in _reservationRepository.RetrieveCollectionAsync(new ReservationFilter {UserId=UserId}))
+                {
+                    response.Reservations.Add(
+                        new ReservationDTO
+                        {
+                            ReservationId = reservation.ReservationId,
+                            UserId = reservation.UserId,
+                            ReservedSpaceId = reservation.ReservedSpaceId,
+                            ReservationDate = reservation.ReservationDate,
+                            UserName = _userRepository.RetrieveAsync(reservation.UserId).Result.Username
+                        }
+                        );
+                }
+                return response;
             }
+            catch (Exception ex)
+            {
+                return new GetReservationListResponse { IsSuccesful = false, Message = ex.Message };
+            }
+        }
     }
 }

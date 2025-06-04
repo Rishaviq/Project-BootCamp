@@ -13,5 +13,6 @@ namespace Office.Services.Interfaces.Reservation
         public Task<GetReservationListResponse> GetAllReservations();
         public Task<CreateReserationResponse> CreateReseration(CreateReserationRequest createReserationRequest);
         public Task<FastReservationResponse> CreateFastReservation(int userId);
+        public Task<GetReservationListResponse> GetAllReservationsPerUser(int userId);
     }
 }
